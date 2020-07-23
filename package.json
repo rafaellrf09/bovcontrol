@@ -1,0 +1,24 @@
+{
+  "name": "bovcontrol",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaellrf09/bovcontrol.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaellrf09/bovcontrol/issues"
+  },
+  "homepage": "https://github.com/rafaellrf09/bovcontrol#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25"
+  }
+}
