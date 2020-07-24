@@ -4,7 +4,16 @@ class AnimalController {
   async index (req, res) {
     try {
       const animals = await Animal.find();
-      return res.json(animals);
+      const mapAnimals = animals.map(animal => {
+        return {
+          _id: animal._id,
+          name: animal.name,
+          type: animal.type,
+          weight: animal.weight,
+          monthAge: `${animal.age} meses`
+        }
+      })
+      return res.json(mapAnimals);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: 'Internal server error' })
@@ -16,7 +25,7 @@ class AnimalController {
       const animal = await Animal.findById(req.params.id);
       
       if (!animal) return res.status(400).json({ erro: "Animal not found." })
-      
+
       return res.json(animal);
     } catch (error) {
       console.log(error);
