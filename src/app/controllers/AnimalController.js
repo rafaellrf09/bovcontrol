@@ -4,16 +4,20 @@ class AnimalController {
   async index (req, res) {
     try {
       const animals = await Animal.find();
-      res.json(animals);
+      return res.json(animals);
     } catch (error) {
       console.log(error);
+      return res.status(500).json({ error: 'Internal server error' })
     }
   }
 
   async show (req, res) {
     try {
       const animal = await Animal.findById(req.params.id);
-      res.json(animal);
+      
+      if (!animal) return res.status(400).json({ erro: "Animal not found." })
+      
+      return res.json(animal);
     } catch (error) {
       console.log(error);
     }
@@ -21,6 +25,10 @@ class AnimalController {
 
   async store (req, res) {
     try {
+      const {name, type } = req.body;
+      const animalExists = await Animal.findOne({name, type});
+      if (animalExists) return res.status(400).json({ erro: "Animal already exists." })
+
       const newAnimal = await Animal.create(req.body);
       return res.json(newAnimal);
     } catch (error) {
@@ -33,7 +41,7 @@ class AnimalController {
       const animalUpdate = await Animal.findByIdAndUpdate(req.params.id, req.query, {
         new: true
       });
-      res.json(animalUpdate);
+      return res.json(animalUpdate);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +50,7 @@ class AnimalController {
   async delete (req, res){
     try {
       await Animal.findByIdAndRemove(req.params.id);
-            res.status(200).send("Animal deletado.");
+           return res.status(200).send("Animal deletado.");
     } catch (error) {
       console.log(error);
     }
