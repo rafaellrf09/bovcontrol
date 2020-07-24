@@ -2,10 +2,11 @@ const express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dbConfig = require('./config/database')
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/projectBov', {
+mongoose.connect(dbConfig.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(console.log("Mongo conectado")).catch(err => console.log(err))
